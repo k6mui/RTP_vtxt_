@@ -18,10 +18,6 @@ On equipment 2:
 `./vitextclient 239.0.0.1`
 
 ## Initial Scenario
-# SMA Practices
-
-## Initial Scenario
-
 Let's assume the client starts first:
 
 - **P1-P4:** The server waits for 100ms (buffer) and begins playback.
