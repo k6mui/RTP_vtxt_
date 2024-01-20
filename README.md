@@ -1,64 +1,76 @@
-# vitextserver / vitextclient
+This project implements a Video On Demand (VOD) System over UDP with sending and receiving to a multicast IP address. The application can run on the same machine and allows data flow from the server to the client.
 
-Este proyecto implementa una aplicación de Sistema de VOD (Video On Demand) sobre UDP, con envío y recepción a una dirección IP multicast. La aplicación puede ejecutarse en el mismo equipo y permite el flujo de datos desde el servidor al cliente.
+## Configuration
 
-## Configuración
+- Either client or server can start first.
+- Explicit command-line configuration for:
+  - Multicast IP address (range 239.0.0.0/8, for local use within a domain).
+  - Video file on the server.
 
-- Cualquiera puede arrancar primero (cliente o servidor).
-- Configuración explícita en línea de comando para:
-  - Dirección IP multicast (rango 239.0.0.0/8, para uso local dentro de un dominio).
-  - Fichero de video en el servidor.
+## Usage Examples
 
-## Ejemplos de Uso
+On equipment 1:
 
-En el equipo1:
-```bash
-./vitextserver 1.vtx 239.0.0.1
-En el equipo2:
+`./vitextserver 1.vtx 239.0.0.1`
 
-bash
-Copy code
-./vitextclient 239.0.0.1
-Prácticas de SMA
-Escenario Inicial
-Supongamos que el cliente se inicia primero:
+On equipment 2:
 
-P1-P4: El servidor espera 100ms (buffer) y comienza la reproducción.
-P5-P7: El cliente se inicia con un buffer de 100 y espera a que el servidor envíe datos.
-Comportamiento del Servidor y Cliente
-El servidor se comporta como si estuviera generando contenido en tiempo real.
-Manda paquetes de un frame según el espaciado indicado en el archivo .vtx.
-El cliente implementa buffering con un valor seleccionable en la línea de comandos.
-Manejo de Frames y Paquetes
-Un frame puede transmitirse en varios paquetes.
-Un frame solo se reproduce si han llegado todos los paquetes que lo componen.
-Interpretación de Cabeceras
-El cliente interpreta la cabecera RTP en el envío de paquetes.
-Lee cabecera RTP.
-Lee cabecera VTX.
-Muestra los datos por la pantalla en el tiempo apropiado.
-Desacoplamiento de Tareas en el Cliente
-Es necesario desacoplar las siguientes tareas:
+`./vitextclient 239.0.0.1`
 
-Recepción de paquetes de datos.
-Espera para reproducir el próximo frame.
-Atención a señal (Ctrl-C).
-Generación y envío de mensajes RTCP.
-Recepción y tratamiento de mensajes RTCP.
-Para lograr esto se utiliza select junto con un buffer de paquetes.
+## Initial Scenario
+# SMA Practices
 
-packet_buffer
-El componente packet_buffer está específicamente desarrollado para vtx y:
+## Initial Scenario
 
-Guarda información relevante como número de secuencia, timestamp, tamaño del frame, etc.
-pbuf_insert: Rellena un paquete con parte de cabecera RTP, cabecera vtx y datos.
-pbuf_retrieve: Devuelve un puntero a los datos y parámetros relevantes (RTP, vtx).
-Escenarios Avanzados en vitextserver
-vitextserver permite especificar patrones de:
+Let's assume the client starts first:
 
-Pérdidas de paquetes.
-Reordenamiento de paquetes.
-Tiempo sin mandar.
-css
-Copy code
-./vitextserver --packet-loss 0.1 --packet-reorder 0.05 --time-without-s
+- **P1-P4:** The server waits for 100ms (buffer) and begins playback.
+- **P5-P7:** The client starts with a buffer of 100 and waits for the server to send data.
+
+## Server and Client Behavior
+
+- The server behaves as if it were generating real-time content.
+  - It sends packets of a frame according to the spacing indicated in the .vtx file.
+- The client implements buffering with a selectable value on the command line.
+
+## Handling of Frames and Packets
+
+- A frame can be transmitted in multiple packets.
+- A frame is only played if all the packets that compose it have arrived.
+
+## Interpretation of Headers
+
+- The client interprets the RTP header in the packet transmission.
+  - Reads RTP header.
+  - Reads VTX header.
+  - Displays the data on the screen at the appropriate time.
+
+## Client Task Decoupling
+
+It is necessary to decouple the following tasks:
+
+1. Reception of data packets.
+2. Waiting to play the next frame.
+3. Signal handling (Ctrl-C).
+4. Generation and sending of RTCP messages.
+5. Reception and processing of RTCP messages.
+
+To achieve this, `select` is used along with a packet buffer.
+
+## packet_buffer
+
+The `packet_buffer` component is specifically developed for `vtx` and:
+
+- Stores relevant information such as sequence number, timestamp, frame size, etc.
+- `pbuf_insert`: Fills a packet with part of the RTP header, vtx header, and data.
+- `pbuf_retrieve`: Returns a pointer to the data and relevant parameters (RTP, vtx).
+
+## Advanced Scenarios in vitextserver
+
+`vitextserver` allows specifying patterns for:
+
+- Packet loss.
+- Packet reordering.
+- Time without sending.
+
+`./vitextserver --packet-loss 0.1 --packet-reorder 0.05 --time-without-send 500`
