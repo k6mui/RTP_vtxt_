@@ -1,0 +1,8 @@
+Remote IP: 239.1.2.3, port 5004, ssrc 1, buffering 100ms, log_filename log2
+-+-+-+-+-+-+-N+-+-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-+-N+N-N+N-N+N-N+N-+-N+-+-+-+-+-+-N+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-N+-N+-+-+-+-N+N-+-N+-+-+-N+N-+-N+-N+-+-+-N+-+-N+N-+-N+-N+N-+-+-+-+-N+N-N+N-N+N-N+N-N+N-+-N+-+-+-N+N-N+-N+-+-N+N-N+N-N+N-N+N-N+N-N+-+-N+N-+-N+N-N+-+-+-N+-+-N+-+-N+N-N+-N+N-N+N-+-N+N-+-+-+-+-+-N+N-N+-N+-+-N+-+-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N-N+N
+----------- Estadísticas de Reproducción ------------------
+Tiempo de reproducción teórico: 5.5033333 segundos
+Tiempo de reproducción real: 5.059739 segundos
+Número total de paquetes: 306
+Tiempo de buffering: 100ms
+--------------------------------------------------------------
