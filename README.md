@@ -1,4 +1,4 @@
-This project implements a Video On Demand (VOD) System over UDP with sending and receiving to a multicast IP address. The application can run on the same machine and allows data flow from the server to the client.
+This project implements a Video On Demand (VOD) System over RTP with sending and receiving to a multicast IP address. The application can run on the same machine and allows data flow from the server to the client.
 
 ## Configuration
 
